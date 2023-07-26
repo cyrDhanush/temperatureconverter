@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:temperatureconverter/colors.dart';
+import 'package:temperatureconverter/processor/helper.dart';
 
 class TempBox extends StatefulWidget {
   final String text;
@@ -24,7 +25,7 @@ class _TempBoxState extends State<TempBox> {
         }
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         margin: EdgeInsets.symmetric(vertical: 7.5, horizontal: 15),
         decoration: BoxDecoration(
           color: fgwhite,
@@ -34,7 +35,9 @@ class _TempBoxState extends State<TempBox> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                getUnit(context: context);
+              },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
                 foregroundColor: Colors.black,
@@ -45,7 +48,7 @@ class _TempBoxState extends State<TempBox> {
                   Text(
                     'Degree Celcius (C)',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.black.withAlpha(150),
                     ),
                   ),
@@ -60,9 +63,6 @@ class _TempBoxState extends State<TempBox> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 0,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -70,7 +70,7 @@ class _TempBoxState extends State<TempBox> {
                   // '1234',
                   widget.text,
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: (widget.currentbox == widget.boxno)
                         ? (Colors.orange)
