@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:temperatureconverter/colors.dart';
 import 'package:temperatureconverter/processor/helper.dart';
+import 'package:temperatureconverter/providers/uidata.dart';
 import 'package:temperatureconverter/widgets/numpad.dart';
 import 'package:temperatureconverter/widgets/tempbox.dart';
 
@@ -30,34 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             TempBox(
-              text: box1,
               boxno: 1,
-              currentbox: currentbox,
-              onToggle: (boxno) {
-                currentbox = boxno;
-                setState(() {});
-              },
+              text: Provider.of<DataElementsProvider>(context).box1,
             ),
             TempBox(
-              text: box2,
               boxno: 2,
-              currentbox: currentbox,
-              onToggle: (boxno) {
-                currentbox = boxno;
-                setState(() {});
-              },
+              text: Provider.of<DataElementsProvider>(context).box2,
             ),
             Spacer(),
-            NumPad(
-              onChanged: (text) {
-                if (currentbox == 1) {
-                  box1 = Helpers.keyStroke(currenttext: box1, stroke: text);
-                } else if (currentbox == 2) {
-                  box2 = Helpers.keyStroke(currenttext: box2, stroke: text);
-                }
-                setState(() {});
-              },
-            ),
+            NumPad(),
           ],
         ),
       ),

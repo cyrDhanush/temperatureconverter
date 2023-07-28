@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:temperatureconverter/colors.dart';
 import 'package:temperatureconverter/processor/helper.dart';
+import 'package:temperatureconverter/providers/uidata.dart';
 
 class TempBox extends StatefulWidget {
-  final String text;
   final int? boxno;
-  final int? currentbox;
   final Function? onToggle;
-  const TempBox(
-      {super.key, this.text = '', this.boxno, this.currentbox, this.onToggle});
+  final String text;
+  const TempBox({super.key, this.boxno, this.onToggle, this.text = ''});
 
   @override
   State<TempBox> createState() => _TempBoxState();
@@ -20,9 +20,9 @@ class _TempBoxState extends State<TempBox> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.onToggle != null) {
-          widget.onToggle!(widget.boxno);
-        }
+        Provider.of<DataElementsProvider>(context, listen: false)
+            .toggleBox(widget.boxno!);
+        setState(() {});
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -67,12 +67,14 @@ class _TempBoxState extends State<TempBox> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  // '1234',
                   widget.text,
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
-                    color: (widget.currentbox == widget.boxno)
+                    color: (Provider.of<DataElementsProvider>(context,
+                                    listen: true)
+                                .currentbox ==
+                            widget.boxno)
                         ? (Colors.orange)
                         : (Colors.black.withAlpha(100)),
                   ),

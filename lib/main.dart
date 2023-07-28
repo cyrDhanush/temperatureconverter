@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:temperatureconverter/homescreen.dart';
+import 'package:temperatureconverter/processor/unitconverter.dart';
+import 'package:temperatureconverter/providers/uidata.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DataElementsProvider()),
+        ChangeNotifierProvider(create: (_) => TempUnitProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

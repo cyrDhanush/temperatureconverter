@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:temperatureconverter/colors.dart';
+import 'package:temperatureconverter/providers/uidata.dart';
 
 class NumPad extends StatefulWidget {
-  final Function? onChanged;
-  const NumPad({super.key, this.onChanged});
+  const NumPad({super.key});
 
   @override
   State<NumPad> createState() => _NumPadState();
@@ -11,9 +12,7 @@ class NumPad extends StatefulWidget {
 
 class _NumPadState extends State<NumPad> {
   onbuttontap(String newnum) {
-    if (widget.onChanged != null) {
-      widget.onChanged!(newnum);
-    }
+    Provider.of<DataElementsProvider>(context, listen: false).addText(newnum);
   }
 
   @override
@@ -39,9 +38,10 @@ class _NumPadState extends State<NumPad> {
             CustomButton(text: '5', onTap: onbuttontap),
             CustomButton(text: '6', onTap: onbuttontap),
             CustomButton(
-                text: 'backspace',
-                onTap: onbuttontap,
-                child: Icon(Icons.backspace_outlined)),
+              text: 'backspace',
+              onTap: onbuttontap,
+              child: Icon(Icons.backspace_outlined),
+            ),
             // third row
             CustomButton(text: '1', onTap: onbuttontap),
             CustomButton(text: '2', onTap: onbuttontap),
