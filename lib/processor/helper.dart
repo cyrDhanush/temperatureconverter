@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:temperatureconverter/colors.dart';
+import 'package:temperatureconverter/processor/unitconverter.dart';
 
 class Helpers {
   static keyStroke({
@@ -13,12 +14,16 @@ class Helpers {
       case 'backspace':
         {
           if (currenttext.length > 1) {
-            result = currenttext.substring(0, currenttext.length - 1);
+            var splitlist = currenttext.split('.');
+            result = (splitlist[0].substring(0, splitlist[0].length - 1)) +
+                '.' +
+                splitlist[1];
+            // result = currenttext.substring(0, currenttext.length - 1);
           }
         }
         break;
       case 'C':
-        result = '';
+        result = '0.0';
         break;
       case '.':
         {
@@ -29,7 +34,14 @@ class Helpers {
           }
         }
       default:
-        result = currenttext + stroke;
+        {
+          if (currenttext == '0.0')
+            result = stroke + '.0';
+          else {
+            var splitlist = currenttext.split('.');
+            result = splitlist[0] + stroke + '.' + splitlist[1];
+          }
+        }
     }
     return result;
   }
@@ -39,7 +51,7 @@ getUnit({required BuildContext context}) async {
   String unit = '';
   setunit(u) {
     unit = u;
-    Navigator.pop(context);
+    Navigator.pop(context, unit);
   }
 
   await showModalBottomSheet(
@@ -87,9 +99,11 @@ getUnit({required BuildContext context}) async {
               ),
               child: Column(
                 children: [
-                  tempUnitButton(setunit: setunit, text: 'Celcuis'),
-                  tempUnitButton(setunit: setunit, text: 'Kelvin'),
-                  tempUnitButton(setunit: setunit, text: 'Fahrenheit'),
+                  // tempUnitButton(setunit: setunit, text: 'Celcuis'),
+                  // tempUnitButton(setunit: setunit, text: 'Kelvin'),
+                  // tempUnitButton(setunit: setunit, text: 'Fahrenheit'),
+                  for (String i in units)
+                    tempUnitButton(setunit: setunit, text: i),
                 ],
               ),
             ),

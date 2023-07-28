@@ -35,8 +35,12 @@ class _TempBoxState extends State<TempBox> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
-              onPressed: () {
-                getUnit(context: context);
+              onPressed: () async {
+                String unit = await getUnit(context: context);
+                if (unit != '') {
+                  Provider.of<DataElementsProvider>(context, listen: false)
+                      .changeUnits(boxno: widget.boxno!, unit: unit);
+                }
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
@@ -46,7 +50,9 @@ class _TempBoxState extends State<TempBox> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Degree Celcius (C)',
+                    ((widget.boxno == 1)
+                        ? (Provider.of<DataElementsProvider>(context).unit1)
+                        : (Provider.of<DataElementsProvider>(context).unit2)),
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black.withAlpha(150),

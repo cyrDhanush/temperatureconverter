@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+List<String> units = [
+  'Celcius C',
+  'Fahrenheit F',
+  'Kelvin K',
+];
+
 class TempUnitProvider extends ChangeNotifier {
   double celcius = 0;
   double fahrenheit = 0;
